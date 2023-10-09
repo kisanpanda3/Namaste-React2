@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../Utils/useOnlineStatus";
 
 const Body = () => {
   // Local State Variable
@@ -30,25 +31,28 @@ const Body = () => {
     );
   };
 
-  // Conditional Rendering
-  // Ternary Operator
+  const onlineStatus = useOnlineStatus();
+
+  if (onlineStatus === false) {
+    return <h1>Looks Like you are Offline</h1>;
+  }
 
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="filter flex">
+        <div className="search m-4 p-4">
           <input
             type="text"
-            className="search-box"
+            className="border border-solid border-black w-96 h-14 rounded-xl"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
           />
           <button
-            className="search-btn"
+            className="px-4 py-2 bg-green-400 m-2 rounded-xl"
             onClick={() => {
               // Filter the restaurant cards and Update the UI
               // searchText
@@ -62,8 +66,9 @@ const Body = () => {
             Search
           </button>
         </div>
+        <div className="search m-4 p-4 flex items-center">
         <button
-          className="filter-btn"
+          className="px-4 py-2 bg-green-400 m-2 rounded-xl"
           onClick={() => {
             // Filter Logic Here
             const filteredList = listOfRestaurants.filter(
@@ -75,15 +80,18 @@ const Body = () => {
         >
           Top Rated Restaurants
         </button>
+        </div>
+       
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {filteredRestaurant.map((restaurant) => (
-          <Link style={{
-            textDecoration:"none",
-            color:"black",
-            fontWeight:"bold",
-            fontFamily:"sans-serif"
-          }}
+          <Link
+            style={{
+              textDecoration: "none",
+              color: "black",
+              fontWeight: "bold",
+              fontFamily: "sans-serif",
+            }}
             key={restaurant.info.id}
             to={"/restaurants/" + restaurant.info.id}
           >
