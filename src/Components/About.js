@@ -2,24 +2,20 @@ import React from "react";
 import User from "./User";
 import UserClass from "./UserClass";
 
+
 class About extends React.Component {
   constructor(props) {
     super(props);
-    
   }
 
-  componentDidMount() {
-   
-  }
+  componentDidMount() {}
   render() {
-    
     return (
       <div>
-        <h1>About</h1>
+        <h1>About Class Component</h1>
         <h2>This is Namaste React About Page</h2>
         {/* <User name={"Kisan Panda (Functional)"}/> */}
         <UserClass name={"First"} location={"Balangir (Class)"} />
-
       </div>
     );
   }
@@ -40,7 +36,5 @@ class About extends React.Component {
 - Parent Component Did Mount
 
 */
-
-
 
 export default About;
